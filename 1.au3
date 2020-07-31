@@ -1,3 +1,7 @@
+#include <EventLog.au3>
+#include <FontConstants.au3>
+#include <GUIConstantsEx.au3>
+
 ;~ UpdateSizeAndPosition()
 ActiveWindow()
 
@@ -32,26 +36,30 @@ Func UpdateSizeAndPosition()
    $DeskSize = WinGetPos("Program Manager")
    if $AllWindows[0][0] == 1 Then
 	  WinMove($AllWindows[1][1], "", 0, 0, $DeskSize[2], $DeskSize[3])
-   ElseIf  $AllWindows[0][0] == 2 Then
+   ElseIf $AllWindows[0][0] == 2 Then
 	  WinMove($AllWindows[1][1], "", 0, 0, $DeskSize[2]/2, $DeskSize[3]/2)
 	  WinMove($AllWindows[2][1], "", $DeskSize[2]/2, $DeskSize[3]/2, $DeskSize[2]/2, $DeskSize[3]/2)
-   ElseIf  $AllWindows[0][0] == 3 Then
+   ElseIf $AllWindows[0][0] == 3 Then
 	  WinMove($AllWindows[1][1], "", 0, 0, $DeskSize[2]/2, $DeskSize[3]/2)
 	  WinMove($AllWindows[2][1], "", $DeskSize[2]/2, $DeskSize[3]/2, $DeskSize[2]/2, $DeskSize[3]/2)
 	  WinMove($AllWindows[3][1], "", $DeskSize[2]/2, 0, $DeskSize[2]/2, $DeskSize[3]/2)
-   ElseIf  	[0][0] == 4 Then
-	  WinMove($AllWindows[3][1], "", 0, 0, $DeskSize[2]/2, $DeskSize[3]/2)
+   ElseIf $AllWindows[0][0] == 4 Then
+	  WinMove($AllWindows[1][1], "", 0, 0, $DeskSize[2]/2, $DeskSize[3]/2)
 	  WinMove($AllWindows[2][1], "", $DeskSize[2]/2, $DeskSize[3]/2, $DeskSize[2]/2, $DeskSize[3]/2)
-	  WinMove($AllWindows[1][1], "", $DeskSize[2]/2, 0, $DeskSize[2]/2, $DeskSize[3]/2)
+	  WinMove($AllWindows[3][1], "", $DeskSize[2]/2, 0, $DeskSize[2]/2, $DeskSize[3]/2)
 	  WinMove($AllWindows[4][1], "", 0, $DeskSize[3]/2, $DeskSize[2]/2, $DeskSize[3]/2)
    EndIf
 EndFunc
 
 Func ActiveWindow()
    $AllWindows = WinList("Nhan Gia Vo Song 3D")
-   For $i = 1 To $AllWindows[0][0]
-	  WinActivate($AllWindows[$i][1])
-	  ControlClick("","","", "left", 1, 20, 20)
+   $Count = $AllWindows[0][0]
+   MsgBox(0, "$Count", $Count)
+   For $i = 1 To $Count
+	  $Window = $AllWindows[$i][1]
+	  WinActivate($Window)
+	  Sleep(50)
+	  ControlClick($Window,"","", "left", 1)
 	  Sleep(1000)
    Next
 EndFunc
